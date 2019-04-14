@@ -26,7 +26,7 @@ Part of supported ANSI escape sequences:
 "hello, world".ansiEscaped(by: .underline) // "\033[4mhello, world\033[0m"
 ```
 
-- [supported ANSI escape sequences](https://github.com/atsushi130/AnsiEscapeSequenceSwift/blob/master/Sources/AnsiEspaceSequenceSwift/AnsiEscapeSequence.swift#L14)
+- [supported ANSI escape sequences](https://github.com/atsushi130/AnsiEscapeSequenceSwift/blob/master/Sources/AnsiEscapeSequenceSwift/AnsiEscapeSequence.swift#L14)
 
 ## via [Swift Package Manager](https://github.com/apple/swift-package-manager)
 ```swift
