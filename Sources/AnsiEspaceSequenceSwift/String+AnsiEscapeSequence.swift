@@ -8,7 +8,7 @@
 extension String {
     
     func addResetAnsiEscapeSequence() -> String {
-        return self + AnsiEscapeSequence.Attributed.reset.ansiEscapeSequence
+        return self + AnsiEscapeSequence.reset.ansiEscapeSequence
     }
     
     func ansiEscaped(by ansiEscapeSequence: [AnsiEscapeSequenceable], target: String?) -> String {
@@ -23,11 +23,7 @@ extension String {
         }
     }
 
-    public func ansiEscaped(by ansiEscapeSequence: AnsiEscapeSequence.Attributed..., target: String? = nil) -> String {
-        return self.ansiEscaped(by: ansiEscapeSequence, target: target)
-    }
-    
-    public func ansiEscaped(by ansiEscapeSequence: AnsiEscapeSequence.Cursor..., target: String? = nil) -> String {
+    public func ansiEscaped(by ansiEscapeSequence: AnsiEscapeSequence..., target: String? = nil) -> String {
         return self.ansiEscaped(by: ansiEscapeSequence, target: target)
     }
     
