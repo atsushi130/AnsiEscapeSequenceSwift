@@ -32,16 +32,24 @@ public enum AnsiEscapeSequence: AnsiEscapeSequenceable {
     case left(n: Int)
     case beginningAndDown(n: Int)
     case beginningAndUp(n: Int)
+    case carriageReturn
+    case movePoint(x: Int,  y: Int)
     
+    // Display
+    case scrollNext(line: Int)
+    case scrollPrev(line: Int)
+    case erasure(type: ErasureType)
+
     // Colorize
-    case black(type: AnsiEscapeSequence.ColorType)
-    case red(type: AnsiEscapeSequence.ColorType)
-    case green(type: AnsiEscapeSequence.ColorType)
-    case yellow(type: AnsiEscapeSequence.ColorType)
-    case blue(type: AnsiEscapeSequence.ColorType)
-    case magenta(type: AnsiEscapeSequence.ColorType)
-    case cyan(type: AnsiEscapeSequence.ColorType)
-    case white(type: AnsiEscapeSequence.ColorType)
+    case black(type: ColorType)
+    case red(type: ColorType)
+    case green(type: ColorType)
+    case yellow(type: ColorType)
+    case blue(type: ColorType)
+    case magenta(type: ColorType)
+    case cyan(type: ColorType)
+    case white(type: ColorType)
+    case rgb(r: Int, g: Int, b: Int, type: ColorType)
     
     var ansiEscapeSequence: String {
         switch self {
@@ -80,6 +88,18 @@ public enum AnsiEscapeSequence: AnsiEscapeSequenceable {
             return "\\033[\(n >= 1 ? n : 1)E"
         case let .beginningAndUp(n):
             return "\\033[\(n >= 1 ? n : 1)F"
+        case .carriageReturn:
+            return "\\033[r"
+        case let .movePoint(x, y):
+            return "\\033[\(x >= 1 ? x : 1);\(y >= 1 ? y : 1)f"
+            
+        // Display
+        case let .scrollNext(line):
+            return "\\033[\(line >= 1 ? line : 1)S"
+        case let .scrollPrev(line):
+            return "\\033[\(line >= 1 ? line : 1)T"
+        case let .erasure(type):
+            return type.ansiEscapedSequence
             
         // Colorize
         case let .black(type):
@@ -98,12 +118,19 @@ public enum AnsiEscapeSequence: AnsiEscapeSequenceable {
             return type.ansiEscaped(for: 36)
         case let .white(type):
             return type.ansiEscaped(for: 37)
+        case let .rgb(r, g, b, type):
+            switch type {
+            case .font:
+                return "\\033;2;\(r);\(g);\(b)m"
+            case .background:
+                return "\\033[48;2;\(r);\(g);\(b)m"
+            }
         }
     }
 }
 
 public extension AnsiEscapeSequence {
-    enum ColorType {
+    public enum ColorType {
         case font
         case background
         
@@ -114,6 +141,18 @@ public extension AnsiEscapeSequence {
             case .background:
                 return "\\033[\(n + 10)m"
             }
+        }
+    }
+}
+
+public extension AnsiEscapeSequence {
+    public enum ErasureType: Int {
+        case backward = 0
+        case forward
+        case all
+        
+        var ansiEscapedSequence: String {
+            return "\033[\(self.rawValue)J"
         }
     }
 }
