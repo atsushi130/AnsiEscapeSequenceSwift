@@ -1,7 +1,7 @@
 import XCTest
 import class Foundation.Bundle
 
-final class AnsiEspaceSequenceSwiftExampleTests: XCTestCase {
+final class AnsiEscapeSequenceSwiftExampleTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
@@ -12,7 +12,7 @@ final class AnsiEspaceSequenceSwiftExampleTests: XCTestCase {
             return
         }
 
-        let fooBinary = productsDirectory.appendingPathComponent("AnsiEspaceSequenceSwiftExample")
+        let fooBinary = productsDirectory.appendingPathComponent("AnsiEscapeSequenceSwiftExample")
 
         let process = Process()
         process.executableURL = fooBinary

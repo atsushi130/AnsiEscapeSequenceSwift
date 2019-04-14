@@ -1,6 +1,6 @@
 
 import Foundation
-import AnsiEspaceSequenceSwift
+import AnsiEscapeSequenceSwift
 
 let example1 = "hello, world".ansiEscaped(by: .bold) // "\033[1mhello, world\033[0m"
 let example2 = "hello, world".ansiEscaped(by: .bold, target: "hello") // "\033[1mhello\033[0m, world""
